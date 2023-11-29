@@ -21,7 +21,7 @@ try:
                         digest = md5(enc_wrd.strip()).hexdigest()
                         count+=1
                         if digest.lower() ==hashpass.lower():
-                            print("Password found")
+                            print("Password found for hash", hashpass)
                             print("Password is " + word)
                             print(count, " passwords have been checked until reach correct one ")
                             print(" ")
@@ -38,5 +38,5 @@ try:
                  break
 
 except:
-    print("No file found named :", pass_hash_file)  
+    print("No file found named :", pass_hash)  
 
