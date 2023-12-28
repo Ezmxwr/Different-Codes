@@ -1,32 +1,3 @@
-""" import networkx as nx
-import matplotlib.pyplot as plt
-# Function to plot the original directed graph
-def plotGraph(G):
-    pos = nx.spring_layout(G, seed=42)
-    nx.draw(G, pos, with_labels=True, node_size=700, node_color='lightblue', font_size=8, font_color='black', font_weight='bold', edge_color='gray', linewidths=1, font_family='arial', arrowsize=10)
-    plt.title('Original Directed Graph')
-    plt.show()
-    # Create a directed graph representing the network
-G = nx.DiGraph()
-# Add edges and their weights to the graph
-edges = [
-('User', 'Kuwait', {'weight': 2}),
-('User', 'UAE', {'weight': 13}),
-('User', 'Oman', {'weight': 17}),
-('User', 'Qatar', {'weight': 2}),
-('User', 'Bahrain', {'weight': 9}),
-('User', 'KSA', {'weight': 7}),
-('Qatar', 'Kuwait', {'weight': 13}),
-('Bahrain', 'Oman', {'weight': 14}),
-('Oman', 'KSA', {'weight': 12}),
-('UAE', 'KSA', {'weight': 19}),
-('UAE', 'Bahrain', {'weight': 16}),
-]
-
-G.add_edges_from(edges)
-# Plot the original directed graph
-plotGraph(G)
-#------ """
 
 import networkx as nx
 import matplotlib.pyplot as plt
