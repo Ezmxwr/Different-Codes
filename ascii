@@ -1,0 +1,76 @@
+
+ package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+var Rows int
+var lines [][9] string
+
+func main() {
+
+	file, err := os.Open("standard.txt")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer file.Close()
+
+	
+	scanner := bufio.NewScanner(file)
+
+	
+
+    input := (os.Args[1])
+    const Cols = 9
+	var asciiArts [][]string
+
+	for _, char := range input {
+    asciiValue := int(char)-32
+    //fmt.Printf("ASCII value of %c is %d\n", char, asciiValue)
+
+	Rows = asciiValue
+	lines = make([][9]string, Rows)
+
+
+	for i := 0; i < Rows; i++ {
+		
+		for j := 0; j < Cols && scanner.Scan(); j++ {
+
+			if i == Rows-2 {
+				lines[i][j] = scanner.Text()
+			}
+			
+		}
+
+		
+		if err := scanner.Err(); err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+	} 
+
+	asciiArt := make([]string, Rows)
+		for i := 0; i < Rows; i++ {
+			var line string
+			for j := 0; j < Cols; j++ {
+				line += lines[i][j]
+			}
+			asciiArt[i] = line
+		}
+		asciiArts = append(asciiArts, asciiArt)
+
+	for j := 0; j < Cols; j++ {
+		for i := 0; i < Rows; i++ {
+			
+			fmt.Printf("%-4s", lines[i][j])
+		}
+		fmt.Println()
+	}
+
+	}
+
+}
