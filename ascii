@@ -26,7 +26,7 @@ func main() {
 
     input := (os.Args[1])
     const Cols = 9
-	var asciiArts [][]string
+	//var asciiArts [][]string
 
 	for _, char := range input {
     asciiValue := int(char)-32
@@ -53,7 +53,7 @@ func main() {
 		}
 	} 
 
-	asciiArt := make([]string, Rows)
+	/*asciiArt := make([]string, Rows)
 		for i := 0; i < Rows; i++ {
 			var line string
 			for j := 0; j < Cols; j++ {
@@ -61,7 +61,7 @@ func main() {
 			}
 			asciiArt[i] = line
 		}
-		asciiArts = append(asciiArts, asciiArt)
+		asciiArts = append(asciiArts, asciiArt)*/
 
 	for j := 0; j < Cols; j++ {
 		for i := 0; i < Rows; i++ {
