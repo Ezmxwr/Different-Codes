@@ -1,76 +1,73 @@
-
- package main
+package main
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
-var Rows int
-var lines [][9] string
-
 func main() {
-
-	file, err := os.Open("standard.txt")
-	if err != nil {
-		fmt.Println("Error:", err)
+	if len(os.Args) == 1 {
 		return
 	}
-	defer file.Close()
 
-	
-	scanner := bufio.NewScanner(file)
+	// Writing arguments in a single string
+	str := os.Args[1]
+	for _, eachArg := range os.Args[2:] {
+		str += " " + eachArg
+	}
 
-	
-
-    input := (os.Args[1])
-    const Cols = 9
-	//var asciiArts [][]string
-
-	for _, char := range input {
-    asciiValue := int(char)-32
-    //fmt.Printf("ASCII value of %c is %d\n", char, asciiValue)
-
-	Rows = asciiValue
-	lines = make([][9]string, Rows)
-
-
-	for i := 0; i < Rows; i++ {
-		
-		for j := 0; j < Cols && scanner.Scan(); j++ {
-
-			if i == Rows-2 {
-				lines[i][j] = scanner.Text()
-			}
-			
+	// Check if str contains "\n" to determine whether it's multiline
+	severalLines := false
+	before := 'z' 
+	 for _, eachLetter := range str {
+		if eachLetter == 'n' && before == '\\' {
+			severalLines = true
+			break
 		}
-
-		
-		if err := scanner.Err(); err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
+		before = eachLetter
 	} 
 
-	/*asciiArt := make([]string, Rows)
-		for i := 0; i < Rows; i++ {
-			var line string
-			for j := 0; j < Cols; j++ {
-				line += lines[i][j]
+	// Writing text line by line into res
+	res := ""
+	 if severalLines {
+		args := strings.Split(str, "\\n")
+		for _, word := range args {
+			for i := 0; i < 8; i++ {
+				for _, letter := range word {
+					res += getLine(1 + int(letter-' ')*9 + i)
+				}
+				fmt.Println(res)
+				res = ""
 			}
-			asciiArt[i] = line
 		}
-		asciiArts = append(asciiArts, asciiArt)*/
-
-	for j := 0; j < Cols; j++ {
-		for i := 0; i < Rows; i++ {
-			
-			fmt.Printf("%-4s", lines[i][j])
+	}  else { 
+		for i := 0; i < 8; i++ {
+			for _, letter := range str {
+				
+				res += getLine(2+int(letter-' ')*9 + i) /* we just add 2 to ensure all letters printed propely like : y and p*/ 
+			}
+			fmt.Println(res)
+			res = ""
 		}
-		fmt.Println()
-	}
+	 } 
+}
 
+func getLine(num int) string {
+	str := ""
+	f, err := os.Open("standard copy.txt")
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
 	}
+	defer f.Close()
 
+	f.Seek(0, 0)
+	content := bufio.NewReader(f)
+	for i := 0; i < num; i++ {
+		str, _ = content.ReadString('\n')  /* read until we  encounters a newline character */
+	}
+	str = strings.TrimSuffix(str, "\n") /* remove spaces */
+	return str
 }
